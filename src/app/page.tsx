@@ -3,7 +3,16 @@ import { PlusCircle, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HomePage() {
+import { UTApi } from "uploadthing/server";
+
+const utapi = new UTApi();
+
+const getFileUrl = (fileKey: string) =>
+  `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${fileKey}`;
+
+export default async function HomePage() {
+  const { files } = await utapi.listFiles();
+
   return (
     <div className="min-h-screen bg-rose-50">
       {/* Header */}
@@ -45,15 +54,12 @@ export default function HomePage() {
       {/* Photo Grid */}
       <section className="container mx-auto px-4 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {/* This would be mapped from actual photos in a real implementation */}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="relative group">
+          {files.map((file) => (
+            <div key={file.id} className="relative group">
               <div className="aspect-square overflow-hidden bg-white rounded-lg shadow-md">
                 <Image
-                  src={`/placeholder.svg?height=400&width=400&text=Hochzeitsfoto ${
-                    i + 1
-                  }`}
-                  alt={`Hochzeitsfoto ${i + 1}`}
+                  src={getFileUrl(file.key)}
+                  alt={`Hochzeitsfoto ${file.name}`}
                   width={400}
                   height={400}
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
