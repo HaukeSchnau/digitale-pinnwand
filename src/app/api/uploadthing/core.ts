@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 
 const f = createUploadthing();
@@ -19,6 +20,8 @@ export const ourFileRouter = {
     console.log("Upload complete");
 
     console.log("file url", file.ufsUrl);
+
+    revalidatePath("/");
   }),
 } satisfies FileRouter;
 

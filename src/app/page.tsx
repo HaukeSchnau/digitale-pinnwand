@@ -1,5 +1,6 @@
+import { MyUploadButton } from "@/components/my-upload-button";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Heart } from "lucide-react";
+import { Heart, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,12 +22,11 @@ export default async function HomePage() {
           <h1 className="text-2xl md:text-3xl font-serif font-medium text-rose-700">
             Unsere Hochzeitserinnerungen
           </h1>
-          <Link href="/upload">
-            <Button className="bg-rose-600 hover:bg-rose-700">
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Foto hinzufügen
-            </Button>
-          </Link>
+
+          <MyUploadButton>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Foto hinzufügen
+          </MyUploadButton>
         </div>
       </header>
 
@@ -42,11 +42,7 @@ export default async function HomePage() {
             damit alle sie genießen können.
           </p>
           <div className="flex justify-center">
-            <Link href="/upload">
-              <Button size="lg" className="bg-rose-600 hover:bg-rose-700">
-                Deine Fotos hochladen
-              </Button>
-            </Link>
+            <MyUploadButton size="lg">Deine Fotos hochladen</MyUploadButton>
           </div>
         </div>
       </section>
